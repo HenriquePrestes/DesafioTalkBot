@@ -1,0 +1,20 @@
+# Ignore compiled code
+*.o
+*.class
+
+# Ignore build output directories
+/bin/
+/target/
+
+# Ignore dependency caches
+node_modules/
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# Ignore system files
+.DS_Store
+
+# Ignore arquivos relacionados às chaves de API
+.env
