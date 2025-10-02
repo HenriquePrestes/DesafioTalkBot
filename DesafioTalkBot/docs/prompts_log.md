@@ -128,10 +128,58 @@ Rooms por conversationId; persistência de mensagens no serviço existente.
 Autenticação com JWT no handshake; CORS liberado para o front.
 Depois, preparar produção: sticky sessions e, se escalar horizontalmente, adapter Redis.
 
-# Dicionário do Programador Código Fonte TV
+# Dicionário do Programador Código Fonte TV - WebSocket
 
 WebSocket
 
 https://www.youtube.com/watch?v=T4unNrKogSA 
 
-# 
+# Por onde encontro os dados do BD postgree para preencher a pool neste arquivo  model.js ?
+
+Para responder com precisão e te mostrar exatamente onde pegar as credenciais, vou abrir os arquivos relevantes (model.js, docker-compose.yml e package.json) para ver como o projeto configura o Postgres e quais envs estão definidos; com isso eu te indico os valores corretos para preencher a pool.
+
+Atualizei model.js para usar dotenv + pg com envs (PGUSER, PGHOST, PGDATABASE, PGPASSWORD, PGPORT) e exportar o pool.
+Adicionei .env.example com os valores padrão do seu docker-compose (user, senha, db).
+No docker-compose.yml, o serviço postgres define:
+POSTGRES_USER: seu_usuario_pg
+POSTGRES_PASSWORD: sua_senha_pg
+POSTGRES_DB: ia_project_db
+Esses viram as variáveis do Node:
+PGUSER=seu_usuario_pg
+PGPASSWORD=sua_senha_pg
+PGDATABASE=ia_project_db
+Host e porta dependem de onde o back-end roda:
+Back-end fora do Docker (local): PGHOST=localhost, PGPORT=5432
+Back-end dentro do mesmo docker-compose: PGHOST=postgres, PGPORT=5432 (usa o nome do serviço como host)
+Como configurar:
+
+Copie o exemplo para .env e ajuste se necessário:
+Caminho: .env
+
+Dica de uso no Windows PowerShell:
+
+Se você está rodando o back-end localmente (fora do Docker):
+Use PGHOST=localhost no .env.
+Se rodar o back-end dentro do compose (e quiser conectar ao Postgres do compose):
+Use PGHOST=postgres no .env.
+
+# Neste codigo o host:process.env.PGUSER está buscando diretamente do arquivo .env ?
+
+Boa pergunta — sim, esses campos estão lendo variáveis de ambiente, e graças ao require('dotenv').config() elas podem vir do arquivo .env. 
+
+user: vem de process.env.PGUSER
+host: vem de process.env.PGHOST
+database: vem de process.env.PGDATABASE
+password: vem de process.env.PGPASSWORD
+port: vem de process.env.PGPORT (convertido para número)
+
+Se alguma variável não estiver definida, o código usa o valor padrão ao lado do operador || (ex.: 'seu_usuario_pg', 'localhost', etc.).
+O que precisa para funcionar via .env
+
+O require('dotenv').config() carrega as variáveis do arquivo .env no diretório de trabalho do processo Node.
+Como colocamos um .env.example em back-end/.env.example, crie o arquivo .env com algo assim:
+PGUSER=seu_usuario_pg
+PGPASSWORD=sua_senha_pg
+PGDATABASE=ia_project_db
+PGHOST=localhost (se o back-end roda fora do Docker) ou PGHOST=postgres (se roda no mesmo docker-compose)
+PGPORT=5432

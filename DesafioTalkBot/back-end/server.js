@@ -9,13 +9,13 @@ app.use(express.json());                          // Aceita JSON no corpo das re
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3000",         //Verificar se é esta porta
         methods: ["GET", "POST"]
     }
 });
 
 // listeners do socket.io
-io.on('connection', (socket) => {
+io.on('connection', (socket) => {                                       //Não sei se é necessário
     console.log('Um usuário se conectou:', socket.id);
 
     // Exemplo de listener que será implementado no controller
