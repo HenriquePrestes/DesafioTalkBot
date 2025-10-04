@@ -165,6 +165,7 @@ Use PGHOST=postgres no .env.
 
 # Neste codigo o host:process.env.PGUSER está buscando diretamente do arquivo .env ?
 
+
 Boa pergunta — sim, esses campos estão lendo variáveis de ambiente, e graças ao require('dotenv').config() elas podem vir do arquivo .env. 
 
 user: vem de process.env.PGUSER
@@ -183,3 +184,8 @@ PGPASSWORD=sua_senha_pg
 PGDATABASE=ia_project_db
 PGHOST=localhost (se o back-end roda fora do Docker) ou PGHOST=postgres (se roda no mesmo docker-compose)
 PGPORT=5432
+
+
+# Typescript, utilizar import, Sequelize
+
+# 

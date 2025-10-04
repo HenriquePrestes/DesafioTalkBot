@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                // Compila para uma versão moderna do JavaScript
+    "module": "NodeNext",             // Usa o sistema de módulos moderno do Node.js
+    "moduleResolution": "NodeNext",   // Como o TS encontra os módulos
+    "baseUrl": ".",                   // Diretório base para os caminhos
+    "outDir": "./dist",               // Onde o JavaScript compilado será salvo
+    "ignoreDeprecations": "6.0",      // Silencia aviso de baseUrl depreciado
+    "rootDir": "./src",               // Onde está nosso código TypeScript
+    "esModuleInterop": true,          // Melhora a compatibilidade entre CommonJS e ES Modules
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,                   // Habilita todas as checagens de tipo estritas
+    "skipLibCheck": true              // Pula a verificação de tipos em arquivos de declaração
+  },
+  "include": ["src/**/*"],            // Quais arquivos o TS deve compilar
+  "exclude": ["node_modules"]         // Quais pastas ignorar
+}
